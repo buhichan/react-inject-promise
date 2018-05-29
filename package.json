@@ -1,0 +1,21 @@
+{
+  "name": "react-inject-promise",
+  "version": "0.0.1",
+  "description": "Resolve a promise and inject the resolved value into a react component.",
+  "main": "index.js",
+  "author": "buhi",
+  "repository": {
+    "type":"git",
+    "url":"git@gitlab.ucloudadmin.com:buhi/react-inject-promise.git"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "*",
+    "tslib": "*"
+  },
+  "devDependencies": {
+    "@types/react": "*",
+    "tslib": "*",
+    "typescript": "^2.8.3"
+  }
+}
