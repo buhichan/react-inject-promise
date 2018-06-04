@@ -5,7 +5,6 @@ import { capitalize } from './utils';
 export interface InjectPromiseOptions<P>{
     values:{[name:string]:(props:P)=>Promise<any>},
     shouldReload:(newProps:P,oldProps:P)=>boolean,
-    usePromiseAll?:boolean
 }
 
 /**
@@ -30,16 +29,17 @@ export function injectPromise<P=any>(options:InjectPromiseOptions<P>){
             return state
         },{})
         state=this.initialState
+        initialized = false
         componentDidMount(){
             this.resolvePromise(this.props)
+            this.initialized = true
         }
         componentDidUpdate(nextProps){
             this.resolvePromise(nextProps)
         }
         resolvePromise=(props:P)=>{
-            if(props === this.props /*componentDidMount*/||options.shouldReload(props,this.props)){
-                if(props !== this.props)
-                    this.setState(this.initialState)
+            if(!this.initialized||options.shouldReload(props,this.props)){
+                this.setState(this.initialState)
                 return Promise.all(
                     Object.keys(options.values).map(name=>{
                         return options.values[name](props).then(value=>[name,value])

@@ -27,10 +27,10 @@ export function injectPromise(options) {
                 return state;
             }, {});
             _this.state = _this.initialState;
+            _this.initialized = false;
             _this.resolvePromise = function (props) {
-                if (props === _this.props /*componentDidMount*/ || options.shouldReload(props, _this.props)) {
-                    if (props !== _this.props)
-                        _this.setState(_this.initialState);
+                if (!_this.initialized || options.shouldReload(props, _this.props)) {
+                    _this.setState(_this.initialState);
                     return Promise.all(Object.keys(options.values).map(function (name) {
                         return options.values[name](props).then(function (value) { return [name, value]; });
                     })).then(function (entries) {
@@ -48,6 +48,7 @@ export function injectPromise(options) {
         }
         InjectPromise.prototype.componentDidMount = function () {
             this.resolvePromise(this.props);
+            this.initialized = true;
         };
         InjectPromise.prototype.componentDidUpdate = function (nextProps) {
             this.resolvePromise(nextProps);
