@@ -29,30 +29,28 @@ export function injectPromise<P=any>(options:InjectPromiseOptions<P>){
             return state
         },{})
         state=this.initialState
-        initialized = false
         componentDidMount(){
             this.resolvePromise(this.props)
-            this.initialized = true
         }
-        componentDidUpdate(nextProps){
-            this.resolvePromise(nextProps)
+        componentDidUpdate(prevProps){
+            if(options.shouldReload(this.props,prevProps)){
+                this.setState(this.initialState)
+                return this.resolvePromise(this.props)
+            }
         }
         resolvePromise=(props:P)=>{
-            if(!this.initialized||options.shouldReload(props,this.props)){
-                this.setState(this.initialState)
-                return Promise.all(
-                    Object.keys(options.values).map(name=>{
-                        return options.values[name](props).then(value=>[name,value])
-                    })
-                ).then(entries=>{
-                    const newState = entries.reduce((state,[name,value])=>{
-                        state[name]=value
-                        state[name+"Loading"]=false
-                        return state
-                    },{})
-                    this.setState(newState)
+            return Promise.all(
+                Object.keys(options.values).map(name=>{
+                    return options.values[name](props).then(value=>[name,value])
                 })
-            }
+            ).then(entries=>{
+                const newState = entries.reduce((state,[name,value])=>{
+                    state[name]=value
+                    state[name+"Loading"]=false
+                    return state
+                },{})
+                this.setState(newState)
+            })
         }
         render(){
             return React.createElement(Component,{

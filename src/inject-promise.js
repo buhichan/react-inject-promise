@@ -27,31 +27,29 @@ export function injectPromise(options) {
                 return state;
             }, {});
             _this.state = _this.initialState;
-            _this.initialized = false;
             _this.resolvePromise = function (props) {
-                if (!_this.initialized || options.shouldReload(props, _this.props)) {
-                    _this.setState(_this.initialState);
-                    return Promise.all(Object.keys(options.values).map(function (name) {
-                        return options.values[name](props).then(function (value) { return [name, value]; });
-                    })).then(function (entries) {
-                        var newState = entries.reduce(function (state, _a) {
-                            var name = _a[0], value = _a[1];
-                            state[name] = value;
-                            state[name + "Loading"] = false;
-                            return state;
-                        }, {});
-                        _this.setState(newState);
-                    });
-                }
+                return Promise.all(Object.keys(options.values).map(function (name) {
+                    return options.values[name](props).then(function (value) { return [name, value]; });
+                })).then(function (entries) {
+                    var newState = entries.reduce(function (state, _a) {
+                        var name = _a[0], value = _a[1];
+                        state[name] = value;
+                        state[name + "Loading"] = false;
+                        return state;
+                    }, {});
+                    _this.setState(newState);
+                });
             };
             return _this;
         }
         InjectPromise.prototype.componentDidMount = function () {
             this.resolvePromise(this.props);
-            this.initialized = true;
         };
-        InjectPromise.prototype.componentDidUpdate = function (nextProps) {
-            this.resolvePromise(nextProps);
+        InjectPromise.prototype.componentDidUpdate = function (prevProps) {
+            if (options.shouldReload(this.props, prevProps)) {
+                this.setState(this.initialState);
+                return this.resolvePromise(this.props);
+            }
         };
         InjectPromise.prototype.render = function () {
             return React.createElement(Component, tslib_1.__assign({}, this.props, this.state), this.props.children);
