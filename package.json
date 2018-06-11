@@ -1,6 +1,6 @@
 {
   "name": "react-inject-promise",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Resolve a promise and inject the resolved value into a react component.",
   "main": "index.js",
   "author": "buhi",
