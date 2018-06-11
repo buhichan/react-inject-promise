@@ -39,7 +39,7 @@ describe("Test Injecting Promise.", ()=>{
             expect(div.props.fooLoading).toBe(false)
             expect(fooPromise).toHaveBeenCalledTimes(1)
             done()
-        }, 101)
+        }, 200)
     })
     it('should reload promise when shouldReload returns true',(done)=>{
         const {div,fooPromise,renderer,Comp} = makeComponent()
@@ -110,7 +110,7 @@ describe("Test Render Promise",()=>{
             expect(div.props.valueLoading).toBe(false)
             expect(fooPromise).toHaveBeenCalledTimes(1)
             done()
-        }, 101)
+        }, 200)
     })
     it('should reload promise when shouldReload returns true',(done)=>{
         const {div,fooPromise,Comp,renderer} = makeComponent()
