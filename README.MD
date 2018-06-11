@@ -22,10 +22,12 @@ injectPromise<Props>(arg:{
 ```
 
 Inject the promise(s), the injected props are:
-- [name]: the user-defined name of that promise. 
+- [name]
+    - the user-defined name of that promise. 
 - [name]Loading
     - Whether the promise status is "resolving" 
-- reload[Name] [Name] is capitalized [name]
+- reload[Name] 
+    - [Name] is capitalized [name]
     - Reload the promise, which could means re-fetch data from remote api.
 - set[Name]
     - Manully update the resolved value
