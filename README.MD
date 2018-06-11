@@ -10,8 +10,9 @@ Hocs which resolve and inject various things.
 ## injectPromise
 
 ```typescript
-// A hoc(higher-order-component)
 type ReactComponent<Props> = React.StatelessComponent<Props>|React.ComponentClass<Props>;
+
+// A hoc(higher-order-component)
 injectPromise<Props>(arg:{
     values:{
         [name:string]:(props:Props)=>Promise<any>
