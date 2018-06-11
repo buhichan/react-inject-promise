@@ -1,3 +1,5 @@
+![travis ci](https://travis-ci.org/buhichan/redux-schema-form.svg?branch=master)
+
 # React Inject Promise
 Hocs which resolve and inject various things.
 - Used with recompose is recommended.
