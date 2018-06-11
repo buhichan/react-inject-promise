@@ -64,7 +64,7 @@ class Haha extends React.PureComponent<any,any>{
 import * as React from "react"
 import {RenderPromise} from "react-inject-promise"
 
-const promise = (groupId)=>fetch(`/users?group=${groupId}`).then(r=>r.json())
+const fetchUsers = (groupId)=>fetch(`/users?group=${groupId}`).then(r=>r.json())
 
 function Haha(){
     /*
