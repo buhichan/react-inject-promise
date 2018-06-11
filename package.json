@@ -6,10 +6,11 @@
   "author": "buhi",
   "repository": {
     "type": "git",
-    "url": "git@gitlab.ucloudadmin.com:buhi/react-inject-promise.git"
+    "url": "git@github.com:buhichan/react-inject-promise.git"
   },
   "license": "MIT",
   "scripts": {
+    "version":"tsc -p . && git add -A",
     "test": "jest"
   },
   "peerDependencies": {
