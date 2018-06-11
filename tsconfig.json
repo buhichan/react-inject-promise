@@ -13,7 +13,6 @@
       "noImplicitAny": false,
       "jsx":"react",
       "allowJs": true,
-      "watch": true,
       "lib":["es6","scripthost","dom","es2016.array.include","es2015.promise"]
     }
   }
