@@ -66,7 +66,7 @@ import {RenderPromise} from "react-inject-promise"
 
 const fetchUsers = (groupId)=>fetch(`/users?group=${groupId}`).then(r=>r.json())
 
-function Haha(){
+function Component(props){
     /*
      * when reloadFlag changes, the 'promise' prop will be re-called, e.g. reload data from remote API.
      * it is ok to pass an inline function as 'promise' props, because RenderPromise will only use the first 'promise' prop it sees, except when reloadFlag has changed.
