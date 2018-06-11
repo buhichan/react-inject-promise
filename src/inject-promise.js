@@ -18,7 +18,7 @@ export function injectPromise(options) {
                 state[name] = undefined;
                 state[name + "Loading"] = true;
                 state["reload" + capitalizedName] = function () {
-                    _this.resolvePromise(_this.props);
+                    return _this.resolvePromise(_this.props);
                 };
                 state["set" + capitalizedName] = function (value) {
                     _this.setState((_a = {}, _a[name] = value, _a));

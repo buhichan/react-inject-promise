@@ -14,6 +14,9 @@ Inject the resolved value of an object map of functions that accept props and re
 - set+Name
     - Manully update the resolved value
 
+## How to use
+
+### Usage 1
 ```tsx
 import * as React from "react"
 import {injectPromise} from "react-inject-promise"
@@ -27,7 +30,12 @@ import {injectPromise} from "react-inject-promise"
 })
 class Haha extends React.PureComponent<any,any>{
     render(){
-        const {users,reloadUsers,setUsers,usersLoading} = this.props
+        const {
+            users, // undefined or the resolved value
+            reloadUsers, // a callback to re-resolve the promise
+            setUsers, // set the resolved value manually
+            usersLoading // whether the promise is in pending state
+        } = this.props
         if(usersLoading)
             return <div>loading...</div>
         return <div>
@@ -46,4 +54,27 @@ class Haha extends React.PureComponent<any,any>{
         </div>
     }
 }
+```
+
+### Usage 2:
+
+```tsx
+import * as React from "react"
+import {RenderPromise} from "react-inject-promise"
+
+const promise = (props)=>fetch(`/users?group=${props.group}`).then(r=>r.json())
+
+function Haha(){
+    return <RenderPromise>
+        {({
+            value,
+            valueLoading,
+            setValue,
+            reloadValue
+        })=>{
+            return valueLoading?"loading...":<p>{value}</p>
+        }}
+    </RenderPromise>
+}
+
 ```

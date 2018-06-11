@@ -21,7 +21,7 @@ export function injectPromise<P=any>(options:InjectPromiseOptions<P>){
             state[name]=undefined
             state[name+"Loading"]=true
             state["reload"+capitalizedName]=()=>{
-                this.resolvePromise(this.props)
+                return this.resolvePromise(this.props)
             }
             state["set"+capitalizedName]=(value)=>{
                 this.setState({[name]:value})

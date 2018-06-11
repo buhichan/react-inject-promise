@@ -1,7 +1,7 @@
 {
   "name": "react-inject-promise",
   "version": "0.0.3",
-  "description": "Resolve a promise and inject the resolved value into a react component.",
+  "description": "Inject a promised value into a react component, either by 'higher order component' or by 'function as children'.",
   "main": "index.js",
   "author": "buhi",
   "repository": {
@@ -9,13 +9,36 @@
     "url": "git@gitlab.ucloudadmin.com:buhi/react-inject-promise.git"
   },
   "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
   "peerDependencies": {
     "react": "*",
     "tslib": "*"
   },
   "devDependencies": {
+    "@types/jest": "^23.0.0",
     "@types/react": "*",
+    "@types/react-test-renderer": "^16.0.1",
+    "jest": "^23.1.0",
+    "react": "^16.4.0",
+    "react-test-renderer": "^16.4.0",
+    "ts-jest": "^22.4.6",
     "tslib": "*",
     "typescript": "^2.8.3"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
   }
 }
