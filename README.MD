@@ -64,10 +64,14 @@ class Haha extends React.PureComponent<any,any>{
 import * as React from "react"
 import {RenderPromise} from "react-inject-promise"
 
-const promise = (props)=>fetch(`/users?group=${props.group}`).then(r=>r.json())
+const promise = (groupId)=>fetch(`/users?group=${groupId}`).then(r=>r.json())
 
 function Haha(){
-    return <RenderPromise>
+    /*
+     * when reloadFlag changes, the 'promise' prop will be re-called, e.g. reload data from remote API.
+     * it is ok to pass an inline function as 'promise' props, because RenderPromise will only use the first 'promise' prop it sees, except when reloadFlag has changed.
+     */
+    return <RenderPromise promise={()=>fetchUsers(props.groupId)} reloadFlag={props.groupId}>
         {({
             value,
             valueLoading,
