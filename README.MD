@@ -8,13 +8,33 @@ Hocs which resolve and inject various things.
 `npm install react-inject-promise` or `yarn add react-inject-promise`
 
 ## injectPromise
-Inject the resolved value of an object map of functions that accept props and returns promises, along with:
-- name+"Loading", where name is the key of that promise
-    - True if the promise status is "resolving" 
-- reload+Name, Name is capitalized name
-    - Reload the promise, which could means re-get data from api.
-- set+Name
+
+```typescript
+// A hoc(higher-order-component)
+type ReactComponent<Props> = React.StatelessComponent<Props>|React.ComponentClass<Props>;
+injectPromise<Props>(arg:{
+    values:{
+        [name:string]:(props:Props)=>Promise<any>
+    },
+    shouldReload:(p1:Props,p2:Props)=>boolean
+})(Component:ReactComponent<Props>)
+```
+
+Inject the promise(s), the injected props are:
+- [name]: the user-defined name of that promise. 
+- [name]Loading
+    - Whether the promise status is "resolving" 
+- reload[Name] [Name] is capitalized [name]
+    - Reload the promise, which could means re-fetch data from remote api.
+- set[Name]
     - Manully update the resolved value
+
+## RenderPromise
+Render a function as children, the argument passed to that function is similar to 'injectPromise':
+- value
+- valueLoading
+- reloadValue
+- setValue
 
 ## How to use
 
@@ -36,7 +56,7 @@ class Haha extends React.PureComponent<any,any>{
             users, // undefined or the resolved value
             reloadUsers, // a callback to re-resolve the promise
             setUsers, // set the resolved value manually
-            usersLoading // whether the promise is in pending state
+            usersLoading // whether the promise is not resolved yet.
         } = this.props
         if(usersLoading)
             return <div>loading...</div>
