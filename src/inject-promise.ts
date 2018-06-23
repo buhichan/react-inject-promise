@@ -7,6 +7,10 @@ export interface InjectPromiseOptions<P>{
     shouldReload:(newProps:P,oldProps:P)=>boolean,
 }
 
+type InjectedPromiseState = {
+    [props:string]:any
+}
+
 /**
  * Injects the promise's value when it's resolved.
  * @inject 
@@ -15,7 +19,7 @@ export interface InjectPromiseOptions<P>{
  * @param options 
  */
 export function injectPromise<P=any>(options:InjectPromiseOptions<P>){
-    return Component=>class InjectPromise extends React.PureComponent<P>{
+    return (Component:any)=>class InjectPromise extends React.PureComponent<P>{
         initialState=Object.keys(options.values).reduce((state,name)=>{
             const capitalizedName = capitalize(name)
             state[name]=undefined
@@ -23,16 +27,16 @@ export function injectPromise<P=any>(options:InjectPromiseOptions<P>){
             state["reload"+capitalizedName]=()=>{
                 return this.resolvePromise(this.props)
             }
-            state["set"+capitalizedName]=(value)=>{
+            state["set"+capitalizedName]=(value:any)=>{
                 this.setState({[name]:value})
             }
             return state
-        },{})
+        },{} as InjectedPromiseState)
         state=this.initialState
         componentDidMount(){
             this.resolvePromise(this.props)
         }
-        componentDidUpdate(prevProps){
+        componentDidUpdate(prevProps:P){
             if(options.shouldReload(this.props,prevProps)){
                 this.setState(this.initialState)
                 return this.resolvePromise(this.props)
@@ -48,7 +52,7 @@ export function injectPromise<P=any>(options:InjectPromiseOptions<P>){
                     state[name]=value
                     state[name+"Loading"]=false
                     return state
-                },{})
+                },{} as InjectedPromiseState)
                 this.setState(newState)
             })
         }

@@ -7,7 +7,7 @@ var RenderPromise = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.container = injectPromise({
             values: {
-                value: function (props) { return _this.props.promise(); }
+                value: function () { return _this.props.promise(); }
             },
             shouldReload: function (p1, p2) { return p1.reloadFlag !== p2.reloadFlag; }
         })(function (_a) {
