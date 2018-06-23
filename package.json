@@ -1,6 +1,6 @@
 {
   "name": "react-inject-promise",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Inject a promised value into a react component, either by 'higher order component' or by 'function as children'.",
   "main": "index.js",
   "author": "buhi",
@@ -10,7 +10,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "version":"tsc -p . && git add -A",
+    "version": "tsc -p . && git add -A",
     "test": "jest"
   },
   "peerDependencies": {
