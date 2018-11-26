@@ -25,7 +25,7 @@ export function injectPromise<P=any>(options:InjectPromiseOptions<P>){
             state[name]=undefined
             state[name+"Loading"]=true
             state["reload"+capitalizedName]=()=>{
-                return this.resolvePromise(this.props)
+                return this.resolvePromise(this.props).then(res=>res[name])
             }
             state["set"+capitalizedName]=(value:any)=>{
                 this.setState({[name]:value})
@@ -53,7 +53,8 @@ export function injectPromise<P=any>(options:InjectPromiseOptions<P>){
                     state[name+"Loading"]=false
                     return state
                 },{} as InjectedPromiseState)
-                return new Promise(resolve=>this.setState(newState,resolve))
+                this.setState(newState)
+                return newState
             })
         }
         render(){

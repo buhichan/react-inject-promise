@@ -18,7 +18,7 @@ export function injectPromise(options) {
                 state[name] = undefined;
                 state[name + "Loading"] = true;
                 state["reload" + capitalizedName] = function () {
-                    return _this.resolvePromise(_this.props);
+                    return _this.resolvePromise(_this.props).then(function (res) { return res[name]; });
                 };
                 state["set" + capitalizedName] = function (value) {
                     _this.setState((_a = {}, _a[name] = value, _a));
@@ -37,7 +37,8 @@ export function injectPromise(options) {
                         state[name + "Loading"] = false;
                         return state;
                     }, {});
-                    return new Promise(function (resolve) { return _this.setState(newState, resolve); });
+                    _this.setState(newState);
+                    return newState;
                 });
             };
             return _this;
