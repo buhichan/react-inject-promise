@@ -1,6 +1,6 @@
 {
   "name": "react-inject-promise",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Inject a promised value into a react component, either by 'higher order component' or by 'function as children'.",
   "main": "index.js",
   "author": "buhi",
