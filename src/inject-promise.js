@@ -37,7 +37,7 @@ export function injectPromise(options) {
                         state[name + "Loading"] = false;
                         return state;
                     }, {});
-                    _this.setState(newState);
+                    return new Promise(function (resolve) { return _this.setState(newState, resolve); });
                 });
             };
             return _this;

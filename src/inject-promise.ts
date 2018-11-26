@@ -53,7 +53,7 @@ export function injectPromise<P=any>(options:InjectPromiseOptions<P>){
                     state[name+"Loading"]=false
                     return state
                 },{} as InjectedPromiseState)
-                this.setState(newState)
+                return new Promise(resolve=>this.setState(newState,resolve))
             })
         }
         render(){
